@@ -54,6 +54,8 @@
   },
   "keywords": [
     "function",
+    "arguments",
+    "currying",
     "functional progamming",
     "curry",
     "lazy",
