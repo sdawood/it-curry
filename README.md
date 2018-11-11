@@ -8,6 +8,25 @@ master|develop|npm
 
 Because the pattern is flexible and interesting
 
+# Usage
+
+```js
+
+const {curry} = require('it-curry');
+
+let foo = curry(bar);
+// call foo up to bar.length times, only executes bar when all required arguments are satisfied
+
+foo = foo(1);
+foo = foo(1, 1);
+...
+const result = foo(1, 1, 1, 1);
+// result of executing bar with n arguments, where n >= bar.length
+
+// See test case below for usage patterns
+
+```
+
 **Try it out `online`** [here](https://npm.runkit.com/it-curry)
 
 # Example
