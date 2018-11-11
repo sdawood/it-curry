@@ -36,6 +36,17 @@ describe('scenario: currying an arity 12 function', () => {
         const expectedResult = 12;
         expect(result).toEqual(expectedResult);
     });
+
+    it('works: brilliantly variants', () => {
+            let foo = curry(bar);
+            foo = foo(1);
+            foo = foo(1, 1);
+            foo = foo(1, 1, 1);
+            foo = foo(1, 1, 1, 1);
+            const result = foo(1, 1);
+            const expectedResult = 12;
+            expect(result).toEqual(expectedResult);
+        });
 });
 
 ```
