@@ -6,7 +6,11 @@ master|develop|npm
 
 `it-curry` offers a generator based unbounded currying of functions of arity > 1
 
-Because the pattern is flexible and interesting
+Because the pattern is flexible and interesting, it-curry also exposts `drip`
+bar = drip(foo) accepts a function foo of arity n, returns a sink function that you can call as many times as you need with as many arguments as you have to, internally the original function foo will be called with `arguments` of length n, hiding the complexity of the pagination away from your client code.
+Upon calling the `sink function` , i.e. bar() with no arguments, the generator terminates.
+
+
 
 # Usage
 
@@ -27,12 +31,37 @@ const result = foo(1, 1, 1, 1);
 
 ```
 
+```js
+
+const {drip} = require('it-curry');
+
+const result = [];
+
+const foo = (a, b, c) => {
+    console.log([a, b, c]);
+    result.push([a, b, c])
+};
+
+const bar = drip(foo);
+
+bar(1, 2, 3);
+bar(4, 5);
+bar(6);
+bar(7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17);
+bar();
+
+console.log(result);
+
+```
+
 **Try it out `online`** [here](https://npm.runkit.com/it-curry)
 
 # Example
 
+## curry
+
 ```js
-const {curry} = require('./index');
+const {curry} = require('./curry');
 
 describe('scenario: currying an arity 12 function', () => {
 
@@ -81,10 +110,47 @@ describe('scenario: currying an arity 12 function', () => {
 
 ```
 
+## drip
+
+```js
+const {drip} = require('./dripper');
+
+describe('scenario: dripping into a function of arity 3', () => {
+
+    it('works: brilliantly :: base case', () => {
+        const result = [];
+
+        const foo = (a, b, c) => {
+            result.push([a, b, c]);
+        };
+
+        const bar = drip(foo);
+
+        bar(1, 2, 3);
+        bar(4, 5);
+        bar(6);
+        bar(7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17);
+        bar();
+        const expectedResult = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+            [10, 11, 12],
+            [13, 14, 15],
+            [16, 17, undefined]
+        ];
+        expect(result).toEqual(expectedResult);
+    });
+
+});
+
+```
+
 ## Possible use cases
 - currying
 - curried function pipeline
 - deferred execution by currying with an extra dummy last argument.
+- internal pagination into a handler of arity n
 
 ## Run the tests
 

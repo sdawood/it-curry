@@ -1,4 +1,4 @@
-const {curry} = require('./index');
+const {curry} = require('./curry');
 
 describe('scenario: currying an arity 12 function', () => {
     

@@ -1,31 +1,10 @@
-function * slyd(fn, len = fn.length) {
-    const args = [];
-
-    while (true) {
-        if (args.length < len) {
-            const batch = [...yield];
-            args.push(...batch);
-        } else {
-            return fn(...args);
-        }
-    }
-}
-
-function spinslyd(fn) {
-    const gen = slyd(fn);
-
-    gen.next();
-
-    return function turn(...args) {
-        const { done, value } = gen.next(args); // two way communication with the generator (::)
-
-        return done ? value : turn;
-    };
-}
+const {curry} = require('./curry');
+const {drip} = require('./dripper');
 
 module.exports = {
-    curry: spinslyd,
-    curryUntil: spinslyd,
-    satisfy: spinslyd,
-    spinslyd
+    curry,
+    satisfy: curry,
+    drip,
+    windowInto: drip
+
 };
