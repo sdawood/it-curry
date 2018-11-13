@@ -42,8 +42,8 @@ function * slyd(fn, len = fn.length) {
     }
 }
 
-function spinslyd(fn) {
-    const gen = slyd(fn);
+function spinslyd(fn, len = fn.length) {
+    const gen = slyd(fn, len);
 
     gen.next();
 

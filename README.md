@@ -6,9 +6,15 @@ master|develop|npm
 
 `it-curry` offers a generator based unbounded currying of functions of arity > 1
 
-Because the pattern is flexible and interesting, it-curry also exposts `drip`
-bar = drip(foo) accepts a function foo of arity n, returns a sink function that you can call as many times as you need with as many arguments as you have to, internally the original function foo will be called with `arguments` of length n, hiding the complexity of the pagination away from your client code.
+Because the pattern is flexible and interesting, it-curry also exposes `drip`
+```js
+bar = drip(foo)
+```
+
+Accepts a function `foo` of `arity` n, returns a `sink` function that you can call as many times as you need with as many arguments as you have to, internally the original function foo will be called with `arguments` of length n, hiding the complexity of the pagination away from your client code.
 Upon calling the `sink function` , i.e. bar() with no arguments, the generator terminates.
+
+Both `curry` and `drip` accept an extra argument `len` that defaults to fn.length (the number of mandatory arguments for the wrapped function, a.k.a the arity)
 
 
 
