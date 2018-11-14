@@ -192,7 +192,7 @@ describe('scenario: dripping into an async function of arity 3', () => {
             result.push([a, b, c]);
         };
 
-        const bar = await drip(foo);
+        const bar = await adrip(foo);
 
         await bar(1, 2, 3);
         await bar(4, 5);
@@ -212,6 +212,7 @@ describe('scenario: dripping into an async function of arity 3', () => {
     });
 
 });
+
 
 
 ```
