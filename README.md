@@ -19,8 +19,6 @@ Both `curry` and `drip` accept an extra argument `len` that defaults to fn.lengt
 `acurry` is the async version of curry, which curries async functions
 `adrip` is the async version of curry, which returns an async sink that drips into an async function
 
-
-
 # Usage
 
 ```js
@@ -64,6 +62,15 @@ console.log(result);
 ```
 
 **Try it out `online`** [here](https://npm.runkit.com/it-curry)
+
+### 1.3.0 (2018-11-14)
+#### Features
+acurry, adrip: async version of both curry and drip (51354b7)
+
+### 1.2.0 (2018-11-13)
+#### Features
+curry, drip: accept len from user, defaults to fn.length (arity) (2e8ed15)
+
 
 # Example
 
