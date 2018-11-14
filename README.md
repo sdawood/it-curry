@@ -4,7 +4,12 @@ master|develop|npm
 
 # it-curry
 
-`it-curry` offers a generator based unbounded currying of functions of arity > 1
+`it-curry` offers a generator based unbounded currying of functions and async functions of arity > 1
+
+```js
+foo = curry(bar)
+```
+
 
 Because the pattern is flexible and interesting, it-curry also exposes `drip`
 ```js
@@ -17,7 +22,8 @@ Upon calling the `sink function` , i.e. bar() with no arguments, the generator t
 Both `curry` and `drip` accept an extra argument `len` that defaults to fn.length (the number of mandatory arguments for the wrapped function, a.k.a the arity)
 
 `acurry` is the async version of curry, which curries async functions
-`adrip` is the async version of curry, which returns an async sink that drips into an async function
+
+`adrip` is the async version of drip, which returns an async sink that drips into an async function
 
 # Usage
 
@@ -63,6 +69,8 @@ console.log(result);
 
 **Try it out `online`** [here](https://npm.runkit.com/it-curry)
 
+
+## Changelog
 ### 1.3.0 (2018-11-14)
 #### Features
 acurry, adrip: async version of both curry and drip (51354b7)
