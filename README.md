@@ -16,6 +16,9 @@ Upon calling the `sink function` , i.e. bar() with no arguments, the generator t
 
 Both `curry` and `drip` accept an extra argument `len` that defaults to fn.length (the number of mandatory arguments for the wrapped function, a.k.a the arity)
 
+`acurry` is the async version of curry, which curries async functions
+`adrip` is the async version of curry, which returns an async sink that drips into an async function
+
 
 
 # Usage
@@ -114,6 +117,21 @@ describe('scenario: currying an arity 12 function', () => {
     });
 });
 
+describe('scenario: currying an async function', () => {
+
+    const bar = async (a, b, c) => a + b + c;
+
+    it('works: ', async done => {
+        let foo = await acurry(bar);
+
+        foo = await foo(1);
+        const result = await foo(1, 1);
+        const expectedResult = 3;
+        expect(result).toEqual(expectedResult);
+        done();
+    });
+});
+
 ```
 
 ## drip
@@ -149,6 +167,37 @@ describe('scenario: dripping into a function of arity 3', () => {
     });
 
 });
+
+describe('scenario: dripping into an async function of arity 3', () => {
+
+    it('works: brilliantly :: base case', async done => {
+        const result = [];
+
+        const foo = async (a, b, c) => {
+            result.push([a, b, c]);
+        };
+
+        const bar = await drip(foo);
+
+        await bar(1, 2, 3);
+        await bar(4, 5);
+        await bar(6);
+        await bar(7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17);
+        await bar();
+        const expectedResult = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+            [10, 11, 12],
+            [13, 14, 15],
+            [16, 17, undefined]
+        ];
+        expect(result).toEqual(expectedResult);
+        done();
+    });
+
+});
+
 
 ```
 
